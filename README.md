@@ -1,7 +1,14 @@
 # gw-api
 
 # Install CRD
-kubectl apply -k "github.com/kubernetes-sigs/gateway-api/config/crd/experimental?ref=v1.2.0"
+kubectl apply -f https://github.com/kubernetes-sigs/gateway-api/releases/latest/download/standard-install.yaml
+
+
+# Install NGINX Gateway Fabric controller
+helm install ngf oci://ghcr.io/nginx/charts/nginx-gateway-fabric \
+  --version 2.1.2 \
+  -n nginx-gateway --create-namespace \
+  --wait
 
 
 # In CA Dir

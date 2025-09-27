@@ -6,14 +6,22 @@ metadata:
 spec:
   gatewayClassName: nginx
   listeners:
+    - name: http
+      protocol: HTTP
+      port: 80
+      hostname: "*.local"
+      allowedRoutes:
+        namespaces:
+          from: All
     - name: https
       protocol: HTTPS
       port: 443
       hostname: "*.local"
       tls:
-        mode: Terminate
         certificateRefs:
-          - name: wildcard-local-tls
+          - kind: Secret
+            name: wildcard-local-tls
+        mode: Terminate
       allowedRoutes:
         namespaces:
-          from: All    # 👈 allow HTTPRoutes in *any* namespace
+          from: All
